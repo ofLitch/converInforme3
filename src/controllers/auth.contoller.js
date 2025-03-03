@@ -94,8 +94,9 @@ export const logout = async (req, res) => {
 };
 
 export const verifyToken = async (req, res) => {
-  const { token } = res.cookies;
-  if (!token) return res.status(401).json({ message: "Unauthorized" });
+  const { token } = req.cookies;
+  console.log(token);
+  if (!token) return res.status(401).json({ message: "Unauthorized1" });
   jwt.verify(token, TOKEN_SECRET, async (err, user) => {
     if (err) return res.status(401).json({ message: "UNAUTHORIZED" });
     const userFound = await User.findById(user.id);
