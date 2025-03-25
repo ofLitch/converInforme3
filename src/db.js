@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const DB_USER = "admin"; 
 const DB_PASSWORD = "password123"; 
-const DB_HOST = "192.168.1.15"; 
+const DB_HOST = "192.168.1.11"; 
 const DB_PORT = "27017"; 
 const DB_NAME = "test"; 
 

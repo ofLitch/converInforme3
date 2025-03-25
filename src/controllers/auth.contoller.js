@@ -63,7 +63,12 @@ export const login = async (req, res) => {
       username: userFound.username,
     });
 
-    res.cookie("token", token, { sameSite: "None" });
+    res.cookie("token", token, {
+      httpOnly: true, // Proteger la cookie de acceso por scripts del cliente
+      secure: process.env.NODE_ENV === "production", // Habilita secure solo en producción (HTTPS)
+      sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax", // None para producción, Lax para desarrollo local
+      maxAge: 60 * 60 * 1000, // Duración de 1 hora
+    });
 
     res.json({
       id: userFound._id,
