@@ -29,12 +29,17 @@ export const register = async (req, res) => {
       id: userSaved._id,
     });
 
-    res.cookie("token", token, { sameSite: "None" });
-
+    res.cookie("token", token, {
+      httpOnly: true, // Proteger la cookie de acceso por scripts del cliente
+      secure: process.env.NODE_ENV === "production", // Habilita secure solo en producción (HTTPS)
+      sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax", // None para producción, Lax para desarrollo local
+      maxAge: 60 * 60 * 1000, // Duración de 1 hora
+    });
     res.json({
       id: userSaved._id,
       username: userSaved.username,
       email: userSaved.email,
+      token: token
     });
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -74,7 +79,7 @@ export const login = async (req, res) => {
       id: userFound._id,
       username: userFound.username,
       email: userFound.email,
-      token,
+      token: token,
     });
   } catch (error) {
     return res.status(500).json({ message: error.message });
