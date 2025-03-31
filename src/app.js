@@ -10,7 +10,7 @@ import cookieParser from "cookie-parser";
 
 const app = express();
 app.use(cors({
-  origin: ['http://localhost:5173', 'http://192.168.1.11:5173'], // Agrega los orígenes permitidos
+  origin: ['http://localhost:5173', 'http://192.168.1.11:5173', 'http://10.0.2.15:5173', 'http://192.168.33.10:5173'], // Agrega los orígenes permitidos
   credentials: true, // Para permitir cookies o encabezados de autenticación
 }));
 
